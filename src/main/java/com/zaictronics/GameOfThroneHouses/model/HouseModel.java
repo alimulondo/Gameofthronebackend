@@ -2,7 +2,7 @@ package com.zaictronics.GameOfThroneHouses.model;
 
 import java.util.List;
 
-public class House {
+public class HouseModel {
 //    url	string	The hypermedia URL of this resource
 //    name	string	The name of this house
 //    region	string	The region that this house resides in.
