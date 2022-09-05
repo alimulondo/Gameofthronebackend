@@ -85,10 +85,7 @@ public class HousesControllerWebLayerTest {
         houseModel.setName("test Name");
         houseModel.setCoatOfArms("Coat of am");
 
-        HouseList houseList = new HouseList();
-        houseList.setHouses(List.of(houseModel));
-
-        when(housesService.getHouses(any(String.class))).thenReturn(houseList);
+        when(housesService.getHouse(any(Integer.class))).thenReturn(houseModel);
 
         //Act
         ResponseEntity<HouseList> response = testRestTemplate.exchange(requestEntity, HouseList.class);
