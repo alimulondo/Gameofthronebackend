@@ -4,6 +4,7 @@ import com.zaictronics.GameOfThroneHouses.model.HouseModel;
 import com.zaictronics.GameOfThroneHouses.service.HousesService;
 import com.zaictronics.GameOfThroneHouses.shared.HouseList;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +30,22 @@ public class HousesControllerWebLayerTest {
     @MockBean
     private HousesService housesService;
 
+    private HouseModel houseModel;
+
+
+    @BeforeEach
+    void setUp(){
+        houseModel = new HouseModel();
+        houseModel.setName("test Name");
+        houseModel.setCoatOfArms("Coat of am");
+    }
+
     @Test
     @DisplayName("Houses can be returned")
     void testGetHouses_WhenSearchKeyIsProvided_returnsMatchingHouses(){
         //Arrange
         String ulr = "/api/v1/houses?searchKey=test";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
-        HouseModel houseModel = new HouseModel();
-        houseModel.setName("test Name");
-        houseModel.setCoatOfArms("Coat of am");
 
         HouseList houseList = new HouseList();
         houseList.setHouses(List.of(houseModel));
@@ -58,10 +66,6 @@ public class HousesControllerWebLayerTest {
         //Arrange
         String ulr = "/api/v1/houses?searchKey=";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
-        HouseModel houseModel = new HouseModel();
-        houseModel.setName("test Name");
-        houseModel.setCoatOfArms("Coat of am");
-
         HouseList houseList = new HouseList();
         houseList.setHouses(List.of(houseModel));
 
@@ -81,9 +85,6 @@ public class HousesControllerWebLayerTest {
         // Arrange
         String ulr = "/api/v1/houses/200";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
-        HouseModel houseModel = new HouseModel();
-        houseModel.setName("test Name");
-        houseModel.setCoatOfArms("Coat of am");
 
         when(housesService.getHouse(any(Integer.class))).thenReturn(houseModel);
 
