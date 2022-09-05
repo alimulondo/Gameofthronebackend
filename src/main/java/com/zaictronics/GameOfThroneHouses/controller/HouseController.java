@@ -1,5 +1,6 @@
 package com.zaictronics.GameOfThroneHouses.controller;
 
+import com.zaictronics.GameOfThroneHouses.model.HouseModel;
 import com.zaictronics.GameOfThroneHouses.service.HousesService;
 import com.zaictronics.GameOfThroneHouses.shared.HouseList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,13 @@ public class HouseController {
         }
 
         return new ResponseEntity<>(houseService.getHouses(searchKey), HttpStatus.OK);
+    }
+
+    @GetMapping("/houses/{id}")
+    public ResponseEntity<HouseModel> getHouse(@PathVariable(name = "id") int id){
+
+        HouseModel house = houseService.getHouse(id);
+
+        return new ResponseEntity<>(house, HttpStatus.OK);
     }
 }

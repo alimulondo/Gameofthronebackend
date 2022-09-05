@@ -8,4 +8,6 @@ import java.util.List;
 public interface HousesService {
 
     HouseList getHouses(String searchKey);
+
+    HouseModel getHouse(int id);
 }
