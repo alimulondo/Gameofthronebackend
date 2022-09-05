@@ -1,10 +1,11 @@
 package com.zaictronics.GameOfThroneHouses.service;
 
 import com.zaictronics.GameOfThroneHouses.model.HouseModel;
+import com.zaictronics.GameOfThroneHouses.shared.HouseList;
 
 import java.util.List;
 
 public interface HousesService {
 
-    List<HouseModel> getHouses(String searchKey);
+    HouseList getHouses(String searchKey);
 }
