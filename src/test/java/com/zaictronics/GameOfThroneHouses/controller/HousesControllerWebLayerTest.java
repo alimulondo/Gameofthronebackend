@@ -51,4 +51,27 @@ public class HousesControllerWebLayerTest {
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
 
     }
+
+    @Test
+    @DisplayName("Search key can not be empty")
+    void tesGetHouses_WhenSeachKeyInEmpty_returnBadRequest(){
+        //Arrange
+        String ulr = "/api/v1/houses?searchKey=";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        HouseModel houseModel = new HouseModel();
+        houseModel.setName("test Name");
+        houseModel.setCoatOfArms("Coat of am");
+
+        HouseList houseList = new HouseList();
+        houseList.setHouses(List.of(houseModel));
+
+        when(housesService.getHouses(any(String.class))).thenReturn(houseList);
+
+        // Act
+        ResponseEntity<HouseList> response = testRestTemplate.exchange(requestEntity, HouseList.class);
+
+        // Assert
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,response.getStatusCode(),
+                "Should return bad request when searchkey is empty");
+    }
 }
