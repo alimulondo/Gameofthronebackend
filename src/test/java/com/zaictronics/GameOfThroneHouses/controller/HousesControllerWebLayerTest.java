@@ -53,7 +53,7 @@ public class HousesControllerWebLayerTest {
     }
 
     @Test
-    @DisplayName("Search key can not be empty")
+    @DisplayName("Search key can not be empty or null")
     void tesGetHouses_WhenSeachKeyInEmpty_returnBadRequest(){
         //Arrange
         String ulr = "/api/v1/houses?searchKey=";
@@ -72,6 +72,6 @@ public class HousesControllerWebLayerTest {
 
         // Assert
         Assertions.assertEquals(HttpStatus.BAD_REQUEST,response.getStatusCode(),
-                "Should return bad request when searchkey is empty");
+                "Should return bad request when searchkey is empty or null");
     }
 }
