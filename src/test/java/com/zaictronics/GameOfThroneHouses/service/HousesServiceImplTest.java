@@ -13,8 +13,12 @@ class HousesServiceImplTest {
     @Test
     void testGtHouse_WhenMethodIsCalled_returnWhiteListedHouseModel() {
         String expectedName = "House Algood";
-        String actualName = housesService.getHouse(2).getName();
+        String actualName = housesService.getHouse(1).getName();
+
+        String expectedId = "1";
+        String actualId = housesService.getHouse(1).getId();
 
         Assertions.assertEquals(expectedName, actualName, "Data was not successfully moved to the model");
+        Assertions.assertEquals(expectedId, actualId, "Id was should be "+expectedId);
     }
 }

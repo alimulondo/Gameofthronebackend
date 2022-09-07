@@ -21,8 +21,6 @@ public class HousesServiceImpl implements HousesService {
     @Override
     public HouseList getHouses(String searchKey) {
 
-
-
         return null;
     }
 
