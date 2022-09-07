@@ -1,8 +1,8 @@
-package com.zaictronics.GameOfThroneHouses.model;
+package com.zaictronics.GameOfThroneHouses.dto;
 
 import java.util.List;
 
-public class HouseModel {
+public class HouseDTO {
 //    url	string	The hypermedia URL of this resource
 //    name	string	The name of this house
 //    region	string	The region that this house resides in.
@@ -22,7 +22,7 @@ public class HouseModel {
 //    swornMembers	array of strings An array of Character resource URLs that are sworn to this house.
 
 
-    private String id;
+    private String ulr;
     private  String name;
     private  String region;
     private  String coatOfArms;
@@ -38,12 +38,12 @@ public class HouseModel {
     private List<String> cadetBranches;
     private List<String> swornMembers;
 
-    public String getId() {
-        return id;
+    public String getUlr() {
+        return ulr;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUlr(String ulr) {
+        this.ulr = ulr;
     }
 
     public String getName() {
