@@ -4,6 +4,7 @@ import com.zaictronics.GameOfThroneHouses.dto.HouseDTO;
 import com.zaictronics.GameOfThroneHouses.model.HouseModel;
 import com.zaictronics.GameOfThroneHouses.repository.HouseRepository;
 import com.zaictronics.GameOfThroneHouses.shared.HouseList;
+import com.zaictronics.GameOfThroneHouses.shared.UrlFormatter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class HousesServiceImpl implements HousesService {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    UrlFormatter urlFormatter;
+
     @Override
     public HouseList getHouses(String searchKey) {
 
@@ -28,6 +32,7 @@ public class HousesServiceImpl implements HousesService {
     public HouseModel getHouse(int id) {
         HouseDTO houseDTO = houseRepository.getHouse();
         HouseModel houseModel = modelMapper.map(houseDTO, HouseModel.class);
+        houseModel.setId(urlFormatter.formatUrl(houseDTO.getUlr()));
 
         return houseModel;
     }

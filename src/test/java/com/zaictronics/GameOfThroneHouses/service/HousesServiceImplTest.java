@@ -19,6 +19,6 @@ class HousesServiceImplTest {
         String actualId = housesService.getHouse(1).getId();
 
         Assertions.assertEquals(expectedName, actualName, "Data was not successfully moved to the model");
-        Assertions.assertEquals(expectedId, actualId, "Id was should be "+expectedId);
+        Assertions.assertEquals(expectedId, actualId, "Id should be "+expectedId);
     }
 }
