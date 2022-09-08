@@ -17,12 +17,24 @@ class HouseRepositoryImplTest {
     HouseRepository houseRepository;
 
     @Test
-    void testGetHouse_WhenProvidedWithHouseId_returnHouseDTO() {
+    void testGetHouse_WhenProvidedWithHouseId_returnOkStatus() {
         int id = 229;
-        HttpStatus expectedUrl = HttpStatus.OK;
+        HttpStatus expectedStatus = HttpStatus.OK;
         HttpStatus actualStatus = houseRepository.getHouse(String.valueOf(id)).getStatusCode();
 
-        Assertions.assertEquals(expectedUrl, actualStatus, "No house with id = "+ id);
+        Assertions.assertEquals(expectedStatus, actualStatus, "No house with id = "+ id);
+    }
+
+    @Test
+    void testGetHouse_WhenProvidedWithWrongHouseId_throwException() {
+        int id = -229;
+        String expectedMessage = "404 NOT_FOUND";
+
+        RuntimeException actualException = Assertions.assertThrows(RuntimeException.class, () -> {
+            houseRepository.getHouse(String.valueOf(id)).getStatusCode();
+        });
+
+        Assertions.assertEquals(expectedMessage, actualException.getMessage(), "Should throw exception ");
     }
 
     @Test
