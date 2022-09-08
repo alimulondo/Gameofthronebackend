@@ -3,12 +3,13 @@ package com.zaictronics.GameOfThroneHouses.controller;
 import com.zaictronics.GameOfThroneHouses.model.HouseModel;
 import com.zaictronics.GameOfThroneHouses.model.MiniHouseModel;
 import com.zaictronics.GameOfThroneHouses.service.HousesService;
-import com.zaictronics.GameOfThroneHouses.shared.HouseList;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -22,13 +23,13 @@ public class HouseController {
     ModelMapper modelMapper;
 
     @GetMapping("/houses")
-    public ResponseEntity<HouseList> getHouses(@RequestParam(name = "searchKey") String searchKey){
+    public ResponseEntity<List<HouseModel>> getHouses(@RequestParam(name = "searchKey") String searchKey){
 
         if(searchKey == null || searchKey.isEmpty()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(houseService.getHouses(searchKey), HttpStatus.OK);
+        return houseService.getHouses();
     }
 
     @GetMapping("/houses/{id}")

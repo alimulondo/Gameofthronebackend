@@ -3,11 +3,15 @@ package com.zaictronics.GameOfThroneHouses.service;
 import com.zaictronics.GameOfThroneHouses.dto.HouseDTO;
 import com.zaictronics.GameOfThroneHouses.model.HouseModel;
 import com.zaictronics.GameOfThroneHouses.repository.HouseRepository;
-import com.zaictronics.GameOfThroneHouses.shared.HouseList;
 import com.zaictronics.GameOfThroneHouses.shared.UrlFormatter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 @Service
@@ -23,9 +27,23 @@ public class HousesServiceImpl implements HousesService {
     UrlFormatter urlFormatter;
 
     @Override
-    public HouseList getHouses(String searchKey) {
+    public ResponseEntity<List<HouseModel>> getHouses() {
+        List<HouseModel> houseModels = new LinkedList<>();
+        HouseModel houseModel;
 
-        return null;
+        ResponseEntity<List<HouseDTO>> housesResponse = houseRepository.getHouses();
+        List<HouseDTO> houseDtoList = housesResponse.getBody();
+        if(houseDtoList == null) throw new RuntimeException("No Houses available");
+        for(HouseDTO dto : houseDtoList){
+             houseModel = modelMapper.map(dto, HouseModel.class);
+             houseModel.setId(urlFormatter.formatUrl(dto.getUrl()));
+            System.out.println("houseModel===>"+houseModel);
+             houseModels.add(houseModel);
+        }
+
+
+
+        return new ResponseEntity<>(houseModels, HttpStatus.OK);
     }
 
     @Override
@@ -36,4 +54,6 @@ public class HousesServiceImpl implements HousesService {
 
         return houseModel;
     }
+
+
 }
