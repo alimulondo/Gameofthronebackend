@@ -22,7 +22,7 @@ public class HouseDTO {
 //    swornMembers	array of strings An array of Character resource URLs that are sworn to this house.
 
 
-    private String ulr;
+    private String url;
     private  String name;
     private  String region;
     private  String coatOfArms;
@@ -38,12 +38,12 @@ public class HouseDTO {
     private List<String> cadetBranches;
     private List<String> swornMembers;
 
-    public String getUlr() {
-        return ulr;
+    public String getUrl() {
+        return url;
     }
 
-    public void setUlr(String ulr) {
-        this.ulr = ulr;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getName() {
@@ -156,5 +156,26 @@ public class HouseDTO {
 
     public void setSwornMembers(List<String> swornMembers) {
         this.swornMembers = swornMembers;
+    }
+
+    @Override
+    public String toString() {
+        return "HouseDTO{" +
+                "ulr='" + url + '\'' +
+                ", name='" + name + '\'' +
+                ", region='" + region + '\'' +
+                ", coatOfArms='" + coatOfArms + '\'' +
+                ", words='" + words + '\'' +
+                ", title=" + title +
+                ", seats=" + seats +
+                ", currentLord='" + currentLord + '\'' +
+                ", heir='" + heir + '\'' +
+                ", overlord='" + overlord + '\'' +
+                ", founded='" + founded + '\'' +
+                ", diedOut='" + diedOut + '\'' +
+                ", ancestralWeapons=" + ancestralWeapons +
+                ", cadetBranches=" + cadetBranches +
+                ", swornMembers=" + swornMembers +
+                '}';
     }
 }

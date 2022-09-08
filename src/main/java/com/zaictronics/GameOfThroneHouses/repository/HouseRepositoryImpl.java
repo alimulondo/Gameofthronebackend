@@ -1,10 +1,12 @@
 package com.zaictronics.GameOfThroneHouses.repository;
 
 import com.zaictronics.GameOfThroneHouses.dto.HouseDTO;
-import com.zaictronics.GameOfThroneHouses.shared.HouseList;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -12,27 +14,31 @@ import java.util.List;
 public class HouseRepositoryImpl implements HouseRepository {
 
     @Autowired
-    HouseList dummyData;
+    WebClient webClient;
 
     @Override
-    public HouseDTO getHouse() {
-        HouseDTO houseDTO = new HouseDTO();
-        houseDTO.setUlr(dummyData.getHouses().get("url"));
-        houseDTO.setName(dummyData.getHouses().get("name"));
-        houseDTO.setRegion(dummyData.getHouses().get("region"));
-        houseDTO.setCoatOfArms(dummyData.getHouses().get("coatOfArms"));
-        houseDTO.setWords(dummyData.getHouses().get("words"));
-        houseDTO.setTitle(List.of(dummyData.getHouses().get("titles")));
-        houseDTO.setSeats(List.of(dummyData.getHouses().get("seats")));
-        houseDTO.setCurrentLord(dummyData.getHouses().get("currentLord"));
-        houseDTO.setHeir(dummyData.getHouses().get("heir"));
-        houseDTO.setDiedOut(dummyData.getHouses().get("diedOut"));
-        houseDTO.setAncestralWeapons(List.of(dummyData.getHouses().get("ancestralWeapons")));
-        houseDTO.setCadetBranches(List.of(dummyData.getHouses().get("cadetBranches")));
-        houseDTO.setSwornMembers(List.of(dummyData.getHouses().get("swornMembers")));
+    public HouseDTO getHouse(String id) {
 
+        return webClient.get()
+                .uri("/houses/"+id)
+                .retrieve()
+                .bodyToMono(HouseDTO.class)
+                .block();
 
-        return  houseDTO;
+    }
+    @Override
+    public ResponseEntity<List<HouseDTO>> getHouses() {
+
+        Mono<ResponseEntity<List<HouseDTO>>> houses = webClient.get()
+                                             .uri("/houses")
+                                             .retrieve()
+                                             .onStatus(
+                                             HttpStatus::isError, e->Mono.error(new RuntimeException(e.statusCode().toString())))
+                                             .toEntityList(HouseDTO.class)
+                                             .onErrorResume(Mono::error);
+
+        return houses.block();
+
 
     }
 }

@@ -39,7 +39,7 @@ public class HousesControllerWebLayerTest {
     }
 
     @Test
-    @Disabled  // this test fails because of the new dummy data introduced.
+//    @Disabled  // this test fails because of the new dummy data introduced.
     @DisplayName("Houses can be returned")
     void testGetHouses_WhenSearchKeyIsProvided_returnsMatchingHouses(){
         //Arrange
@@ -60,7 +60,7 @@ public class HousesControllerWebLayerTest {
     }
 
     @Test
-    @Disabled
+    //@Disabled
     @DisplayName("Search key can not be empty or null")
     void tesGetHouses_WhenSeachKeyInEmpty_returnBadRequest(){
         //Arrange
