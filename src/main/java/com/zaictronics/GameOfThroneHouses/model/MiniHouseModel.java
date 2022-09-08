@@ -39,4 +39,14 @@ public class MiniHouseModel {
     public void setWords(String words) {
         this.words = words;
     }
+
+    @Override
+    public String toString() {
+        return "MiniHouseModel{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", region='" + region + '\'' +
+                ", words='" + words + '\'' +
+                '}';
+    }
 }

@@ -1,6 +1,7 @@
 package com.zaictronics.GameOfThroneHouses.controller;
 
 import com.zaictronics.GameOfThroneHouses.model.HouseModel;
+import com.zaictronics.GameOfThroneHouses.model.MiniHouseModel;
 import com.zaictronics.GameOfThroneHouses.service.HousesService;
 import com.zaictronics.GameOfThroneHouses.shared.HouseList;
 import org.junit.jupiter.api.*;
@@ -24,8 +25,8 @@ public class HousesControllerWebLayerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    @MockBean
-    private HousesService housesService;
+//    @MockBean
+//    private HousesService housesService;
 
     private HouseModel houseModel;
 
@@ -48,7 +49,7 @@ public class HousesControllerWebLayerTest {
         HouseList houseList = new HouseList();
         houseList.setHouses(List.of(houseModel));
 
-       when(housesService.getHouses(any(String.class))).thenReturn(houseList);
+      // when(housesService.getHouses(any(String.class))).thenReturn(houseList);
 
         //Act
         ResponseEntity<HouseList> response = testRestTemplate.exchange(requestEntity, HouseList.class);
@@ -59,6 +60,7 @@ public class HousesControllerWebLayerTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("Search key can not be empty or null")
     void tesGetHouses_WhenSeachKeyInEmpty_returnBadRequest(){
         //Arrange
@@ -67,7 +69,7 @@ public class HousesControllerWebLayerTest {
         HouseList houseList = new HouseList();
         houseList.setHouses(List.of(houseModel));
 
-        when(housesService.getHouses(any(String.class))).thenReturn(houseList);
+//        when(housesService.getHouses(any(String.class))).thenReturn(houseList);
 
         // Act
         ResponseEntity<HouseList> response = testRestTemplate.exchange(requestEntity, HouseList.class);
@@ -79,18 +81,21 @@ public class HousesControllerWebLayerTest {
 
     @Test
     @DisplayName("House can be return given a house id")
-    void testGetHouses_WhenHouseIdIsProvided_returnHouse(){
+    void testGetHouse_WhenHouseIdIsProvided_returnHouse(){
         // Arrange
-        String ulr = "/api/v1/houses/200";
+        String ulr = "/api/v1/houses/1";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
 
-        when(housesService.getHouse(any(Integer.class))).thenReturn(houseModel);
+       // when(housesService.getHouse(any(Integer.class))).thenReturn(houseModel);
 
         //Act
-        ResponseEntity<HouseList> response = testRestTemplate.exchange(requestEntity, HouseList.class);
+        ResponseEntity<MiniHouseModel> response = testRestTemplate.exchange(requestEntity, MiniHouseModel.class);
 
         //Assert
         Assertions.assertEquals(HttpStatus.OK,response.getStatusCode(),
                 "Should return House with the provided Id");
     }
+
+
+
 }
