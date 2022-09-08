@@ -17,11 +17,12 @@ class HouseRepositoryImplTest {
     HouseRepository houseRepository;
 
     @Test
-    void testGetHouse_WhenThisMethodIsCalled_returnHouseDTO() {
-        String expectedUrl = "https://anapioficeandfire.com/api/houses/229";
-        String actualUrl = houseRepository.getHouse(String.valueOf(229)).getUrl();
+    void testGetHouse_WhenProvidedWithHouseId_returnHouseDTO() {
+        int id = 229;
+        HttpStatus expectedUrl = HttpStatus.OK;
+        HttpStatus actualStatus = houseRepository.getHouse(String.valueOf(id)).getStatusCode();
 
-        Assertions.assertEquals(expectedUrl, actualUrl, "Data did not move to the Dto correctly");
+        Assertions.assertEquals(expectedUrl, actualStatus, "No house with id = "+ id);
     }
 
     @Test

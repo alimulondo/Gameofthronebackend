@@ -17,12 +17,14 @@ public class HouseRepositoryImpl implements HouseRepository {
     WebClient webClient;
 
     @Override
-    public HouseDTO getHouse(String id) {
+    public ResponseEntity<HouseDTO> getHouse(String id) {
 
         return webClient.get()
                 .uri("/houses/"+id)
                 .retrieve()
-                .bodyToMono(HouseDTO.class)
+                .onStatus(
+                 HttpStatus::isError, e->Mono.error(new RuntimeException(e.statusCode().toString())))
+                .toEntity(HouseDTO.class)
                 .block();
 
     }

@@ -30,7 +30,7 @@ public class HousesServiceImpl implements HousesService {
 
     @Override
     public HouseModel getHouse(int id) {
-        HouseDTO houseDTO = houseRepository.getHouse(String.valueOf(id));
+        HouseDTO houseDTO = houseRepository.getHouse(String.valueOf(id)).getBody();
         HouseModel houseModel = modelMapper.map(houseDTO, HouseModel.class);
         houseModel.setId(urlFormatter.formatUrl(houseDTO.getUrl()));
 
