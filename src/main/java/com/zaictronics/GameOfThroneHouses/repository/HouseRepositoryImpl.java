@@ -47,7 +47,7 @@ public class HouseRepositoryImpl implements HouseRepository {
     }
 
     @Override
-    public ResponseEntity<List<HouseDTO>> getHouseByName(String name) {
+    public ResponseEntity<List<HouseDTO>> getHouseBySearchKey(String name) {
 
         return webClient.get()
                 .uri("/houses/?"+this.getKey()+"=" + name)

@@ -68,7 +68,7 @@ public class HousesServiceImpl implements HousesService {
     private ResponseEntity<List<MiniHouseModel>> getListResponseEntity(String name) {
         List<MiniHouseModel> miniHouseModels = new LinkedList<>();
         MiniHouseModel miniHouseModel;
-        ResponseEntity<List<HouseDTO>> houseRepoResult = houseRepository.getHouseByName(name);
+        ResponseEntity<List<HouseDTO>> houseRepoResult = houseRepository.getHouseBySearchKey(name);
         List<HouseDTO> houseDTO = houseRepoResult.getBody();
         if(houseDTO == null) throw new RuntimeException("No house available with name="+ name);
         for(HouseDTO dto : houseDTO){

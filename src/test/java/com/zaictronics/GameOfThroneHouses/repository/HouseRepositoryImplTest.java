@@ -51,7 +51,7 @@ class HouseRepositoryImplTest {
     void testGetHouseByName_WhenHouseNameIsProvided_returnOkStatus() {
         HttpStatus expectedStatus = HttpStatus.OK;
         String name = "House Allyrion of Godsgrace";
-        ResponseEntity<List<HouseDTO>> house = houseRepository.getHouseByName(name);
+        ResponseEntity<List<HouseDTO>> house = houseRepository.getHouseBySearchKey(name);
 
         HttpStatus actualStatus = house.getStatusCode();
 
@@ -63,7 +63,7 @@ class HouseRepositoryImplTest {
         int expectedSize = 0;
         String name = "none";
         houseRepository.setKey("name");
-        ResponseEntity<List<HouseDTO>> house = houseRepository.getHouseByName(name);
+        ResponseEntity<List<HouseDTO>> house = houseRepository.getHouseBySearchKey(name);
         int actualSize = house.getBody().size();
 
         Assertions.assertEquals(expectedSize, actualSize);
