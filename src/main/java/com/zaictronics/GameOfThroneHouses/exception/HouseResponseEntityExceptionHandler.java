@@ -13,7 +13,7 @@ public class HouseResponseEntityExceptionHandler extends ResponseEntityException
 
     @ExceptionHandler(value = RuntimeException.class)
      protected ResponseEntity<Object> exceptionHandler(RuntimeException ex, WebRequest req){
-         String message = "No such house available";
+         String message = ex.getMessage();
 
          return handleExceptionInternal(ex, message, new HttpHeaders(), HttpStatus.CONFLICT, req);
 

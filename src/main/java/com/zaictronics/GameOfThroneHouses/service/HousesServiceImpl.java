@@ -37,7 +37,6 @@ public class HousesServiceImpl implements HousesService {
         for(HouseDTO dto : houseDtoList){
              houseModel = modelMapper.map(dto, HouseModel.class);
              houseModel.setId(urlFormatter.formatUrl(dto.getUrl()));
-            System.out.println("houseModel===>"+houseModel);
              houseModels.add(houseModel);
         }
 

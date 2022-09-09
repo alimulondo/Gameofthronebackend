@@ -16,15 +16,6 @@ class HouseListTest {
 
     @Test
     void testGetHouses_WhenMethodCallIsMade_returnDummyData() {
-        String expectedUrl = "https://www.anapioficeandfire.com/api/houses/1";
-        String expectedDiedOut = "Just test data";
-
-
-        String actualUrl = dummyData.getHouses().get("url");
-        String actualDiedOut = dummyData.getHouses().get("diedOut");
-
-        Assertions.assertEquals(expectedUrl, actualUrl, "Url should be "+expectedUrl);
-        Assertions.assertEquals(expectedDiedOut, actualDiedOut, "Url should be "+actualDiedOut);
 
     }
 }

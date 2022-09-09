@@ -3,6 +3,7 @@ package com.zaictronics.GameOfThroneHouses.controller;
 import com.zaictronics.GameOfThroneHouses.model.HouseModel;
 import com.zaictronics.GameOfThroneHouses.model.MiniHouseModel;
 import com.zaictronics.GameOfThroneHouses.service.HousesService;
+import com.zaictronics.GameOfThroneHouses.shared.HouseList;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,16 +21,21 @@ public class HouseController {
     HousesService houseService;
 
     @Autowired
+    HouseList houseList;
+
+    @Autowired
     ModelMapper modelMapper;
 
     @GetMapping("/houses")
-    public ResponseEntity<List<HouseModel>> getHouses(@RequestParam(name = "searchKey") String searchKey){
+    public ResponseEntity<HouseList> getHouses() {
 
-        if(searchKey == null || searchKey.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        ResponseEntity<List<HouseModel>> serviceResp = houseService.getHouses();
 
-        return houseService.getHouses();
+        List<HouseModel> houseModels = serviceResp.getBody();
+
+        houseList.setHouses(houseModels);
+
+        return new ResponseEntity<>(houseList, serviceResp.getStatusCode());
     }
 
     @GetMapping("/houses/{id}")
