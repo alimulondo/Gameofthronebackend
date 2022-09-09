@@ -29,9 +29,9 @@ public class HouseController {
     @GetMapping("/houses")
     public ResponseEntity<HouseList> getHouses() {
 
-        ResponseEntity<List<HouseModel>> serviceResp = houseService.getHouses();
+        ResponseEntity<List<MiniHouseModel>> serviceResp = houseService.getHouses();
 
-        List<HouseModel> houseModels = serviceResp.getBody();
+        List<MiniHouseModel> houseModels = serviceResp.getBody();
 
         houseList.setHouses(houseModels);
 
@@ -49,11 +49,8 @@ public class HouseController {
     }
 
     @GetMapping("/houses/name")
-    public ResponseEntity<MiniHouseModel> getHouseByName(@RequestParam(name = "name") String name){
+    public ResponseEntity<List<MiniHouseModel>> getHouseByName(@RequestParam(name = "name") String name){
 
-
-        ResponseEntity<List<MiniHouseModel>> houseModels = houseService.getHouseByName(name);
-
-       return  null;
+        return houseService.getHouseByName(name);
     }
 }

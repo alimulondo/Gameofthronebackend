@@ -6,6 +6,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -48,23 +49,36 @@ public class HousesControllerWebLayerTest {
     }
 
     @Test
-    @Disabled  // looks like a bug in testRestTemplate api
-    @DisplayName("Throws exception when invalid id is provided")
-    void testGetHouse_WhenHouseIdProvidedIsWrong_throwException(){
+    @DisplayName("Given a wrong id")
+    void testGetHouse_WhenHouseIdProvidedIsWrong_return409(){
         // Arrange
-        String ulr = "/api/v1/houses/2367";
+        String ulr = "/api/v1/houses/900";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
-        String expectedMessage = "404 NOT_FOUND";
+
+        HttpStatus expectedStatus = HttpStatus.CONFLICT;
 
         //Act
-        Exception exception = Assertions.assertThrows(RuntimeException.class, ()->{
 
-         testRestTemplate.exchange(requestEntity, MiniHouseModel.class);
-        });
+            ResponseEntity<Object> result = testRestTemplate.exchange(requestEntity, ParameterizedTypeReference.forType(String.class));
 
         //Assert
-        Assertions.assertEquals(expectedMessage,exception.getMessage(),
-                "Should throw a RuntimeException");
+        Assertions.assertEquals(expectedStatus,result.getStatusCode(),
+                "Should return 409");
+    }
+
+    @Test
+    @DisplayName("Houses can be returned by name")
+    void testGetHouseByName_GivenHouseName_returnOk(){
+        //Arrange
+        String ulr = "/api/v1/houses/name?name=House Allyrion of Godsgrace";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+
+        //Act
+        ResponseEntity<Object> response = testRestTemplate.exchange(requestEntity, ParameterizedTypeReference.forType(String.class));
+
+        //Assert
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+
     }
 
 

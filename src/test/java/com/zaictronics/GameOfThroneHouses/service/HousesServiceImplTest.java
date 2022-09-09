@@ -1,7 +1,5 @@
 package com.zaictronics.GameOfThroneHouses.service;
 
-import com.zaictronics.GameOfThroneHouses.dto.HouseDTO;
-import com.zaictronics.GameOfThroneHouses.model.HouseModel;
 import com.zaictronics.GameOfThroneHouses.model.MiniHouseModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,7 +31,7 @@ class HousesServiceImplTest {
     @Test
     void testGetHouses_WhenMethodCallIsMade_returnOkStatus() {
         HttpStatus expectedStatus = HttpStatus.OK;
-        ResponseEntity<List<HouseModel>> houseList = housesService.getHouses();
+        ResponseEntity<List<MiniHouseModel>> houseList = housesService.getHouses();
 
         HttpStatus actualStatus = houseList.getStatusCode();
 

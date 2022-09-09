@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface HousesService {
 
-    ResponseEntity<List<HouseModel>> getHouses();
+    ResponseEntity<List<MiniHouseModel>> getHouses();
 
     HouseModel getHouse(int id);
 

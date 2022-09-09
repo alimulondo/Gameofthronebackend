@@ -27,15 +27,15 @@ public class HousesServiceImpl implements HousesService {
     UrlFormatter urlFormatter;
 
     @Override
-    public ResponseEntity<List<HouseModel>> getHouses() {
-        List<HouseModel> houseModels = new LinkedList<>();
-        HouseModel houseModel;
+    public ResponseEntity<List<MiniHouseModel>> getHouses() {
+        List<MiniHouseModel> houseModels = new LinkedList<>();
+        MiniHouseModel houseModel;
 
         ResponseEntity<List<HouseDTO>> housesResponse = houseRepository.getHouses();
         List<HouseDTO> houseDtoList = housesResponse.getBody();
         if(houseDtoList == null) throw new RuntimeException("No Houses available");
         for(HouseDTO dto : houseDtoList){
-             houseModel = modelMapper.map(dto, HouseModel.class);
+             houseModel = modelMapper.map(dto, MiniHouseModel.class);
              houseModel.setId(urlFormatter.formatUrl(dto.getUrl()));
              houseModels.add(houseModel);
         }
