@@ -1,5 +1,6 @@
 package com.zaictronics.GameOfThroneHouses.controller;
 
+import com.zaictronics.GameOfThroneHouses.model.HouseModel;
 import com.zaictronics.GameOfThroneHouses.model.MiniHouseModel;
 import com.zaictronics.GameOfThroneHouses.shared.HouseList;
 import org.junit.jupiter.api.*;
@@ -45,6 +46,25 @@ public class HousesControllerWebLayerTest {
         //Assert
         Assertions.assertEquals(HttpStatus.OK,response.getStatusCode(),
                 "Should return House with the provided Id");
+    }
+
+    @Test
+    @DisplayName("House can be return given a house id")
+    void testGetHouse_WhenHouseIdProvidedIsWrong_throwException(){
+        // Arrange
+        String ulr = "/api/v1/houses/-23";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        String expectedMessage = "test";
+
+        //Act
+        Exception exception = Assertions.assertThrows(RuntimeException.class, ()->{
+
+        ResponseEntity<HouseModel> response = testRestTemplate.exchange(requestEntity, HouseModel.class);
+        });
+
+        //Assert
+        Assertions.assertEquals(expectedMessage,exception.getMessage(),
+                "Should throw a RuntimeException");
     }
 
 
