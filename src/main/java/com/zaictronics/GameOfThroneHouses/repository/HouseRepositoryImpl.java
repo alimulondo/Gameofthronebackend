@@ -43,4 +43,17 @@ public class HouseRepositoryImpl implements HouseRepository {
 
 
     }
+
+    @Override
+    public ResponseEntity<List<HouseDTO>> getHouseByName(String name) {
+
+        return webClient.get()
+                .uri("/houses/?name=" + name)
+                .retrieve()
+                .onStatus(
+                 HttpStatus::isError, e -> Mono.error(new RuntimeException(e.statusCode().toString())))
+                .toEntityList(HouseDTO.class)
+                .block();
+    }
 }
+

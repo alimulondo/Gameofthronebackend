@@ -44,7 +44,17 @@ class HouseRepositoryImplTest {
 
         HttpStatus actualStatus = houseList.getStatusCode();
 
-
         Assertions.assertEquals(expectedStatus, actualStatus, "There was an error in getting all houses");
+    }
+
+    @Test
+    void testGetHouseByName_WhenHouseNameIsProvided_returnOkStatus() {
+        HttpStatus expectedStatus = HttpStatus.OK;
+        String name = "House Allyrion of Godsgrace";
+        ResponseEntity<List<HouseDTO>> house = houseRepository.getHouseByName(name);
+
+        HttpStatus actualStatus = house.getStatusCode();
+
+        Assertions.assertEquals(expectedStatus, actualStatus);
     }
 }

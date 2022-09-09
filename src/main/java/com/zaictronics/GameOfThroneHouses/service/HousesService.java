@@ -10,4 +10,7 @@ public interface HousesService {
     ResponseEntity<List<HouseModel>> getHouses();
 
     HouseModel getHouse(int id);
+
+    HouseModel getHouseByName(String name);
+
 }

@@ -48,10 +48,19 @@ public class HousesServiceImpl implements HousesService {
     @Override
     public HouseModel getHouse(int id) {
         HouseDTO houseDTO = houseRepository.getHouse(String.valueOf(id)).getBody();
+        if(houseDTO == null) throw new RuntimeException("House with id="+id+" is not available");
         HouseModel houseModel = modelMapper.map(houseDTO, HouseModel.class);
         houseModel.setId(urlFormatter.formatUrl(houseDTO.getUrl()));
 
         return houseModel;
+    }
+
+    @Override
+    public HouseModel getHouseByName(String name) {
+        List<HouseDTO> houseDTO = houseRepository.getHouseByName(name).getBody();
+        HouseModel houseModel = modelMapper.map(houseDTO, HouseModel.class);
+//        houseModel.setId(urlFormatter.formatUrl(houseDTO.getUrl()));
+        return null;
     }
 
 
