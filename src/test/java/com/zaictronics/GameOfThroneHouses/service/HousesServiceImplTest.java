@@ -2,6 +2,7 @@ package com.zaictronics.GameOfThroneHouses.service;
 
 import com.zaictronics.GameOfThroneHouses.dto.HouseDTO;
 import com.zaictronics.GameOfThroneHouses.model.HouseModel;
+import com.zaictronics.GameOfThroneHouses.model.MiniHouseModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,17 @@ class HousesServiceImplTest {
 
 
         Assertions.assertEquals(expectedStatus, actualStatus, "There was an error in getting all houses");
+    }
+
+    @Test
+    void testGetHouseByName_WhenHouseNameIsProvide_returnOkStatus() {
+        HttpStatus expectedStatus = HttpStatus.OK;
+        String name = "House Allyrion of Godsgrace";
+        ResponseEntity<List<MiniHouseModel>> houseList = housesService.getHouseByName(name);
+
+        HttpStatus actualStatus = houseList.getStatusCode();
+
+
+        Assertions.assertEquals(expectedStatus, actualStatus, "Should return house with name = "+name);
     }
 }

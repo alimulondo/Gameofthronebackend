@@ -1,6 +1,7 @@
 package com.zaictronics.GameOfThroneHouses.service;
 
 import com.zaictronics.GameOfThroneHouses.model.HouseModel;
+import com.zaictronics.GameOfThroneHouses.model.MiniHouseModel;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -11,6 +12,6 @@ public interface HousesService {
 
     HouseModel getHouse(int id);
 
-    HouseModel getHouseByName(String name);
+    ResponseEntity<List<MiniHouseModel>> getHouseByName(String name);
 
 }

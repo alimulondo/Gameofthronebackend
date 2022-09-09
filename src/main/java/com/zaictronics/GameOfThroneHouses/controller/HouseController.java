@@ -50,7 +50,9 @@ public class HouseController {
 
     @GetMapping("/houses/name")
     public ResponseEntity<MiniHouseModel> getHouseByName(@RequestParam(name = "name") String name){
-        HouseModel houseModel = houseService.getHouseByName(name);
+
+
+        ResponseEntity<List<MiniHouseModel>> houseModels = houseService.getHouseByName(name);
 
        return  null;
     }
