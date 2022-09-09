@@ -57,4 +57,15 @@ class HouseRepositoryImplTest {
 
         Assertions.assertEquals(expectedStatus, actualStatus);
     }
+
+    @Test
+    void testGetHouseByName_WhenHouseNameIsProvidedIsWrong_returnEmptyObject() {
+        int expectedSize = 0;
+        String name = "none";
+        ResponseEntity<List<HouseDTO>> house = houseRepository.getHouseByName(name);
+
+        int actualSize = house.getBody().size();
+
+        Assertions.assertEquals(expectedSize, actualSize);
+    }
 }
