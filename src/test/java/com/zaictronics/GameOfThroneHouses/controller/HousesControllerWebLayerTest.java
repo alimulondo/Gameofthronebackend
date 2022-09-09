@@ -83,9 +83,25 @@ public class HousesControllerWebLayerTest {
 
     @Test
     @DisplayName("Houses can be returned by region")
-    void testGetHouseByRegion_GivenHouseName_returnOk(){
+    void testGetHouseByRegion_GivenHouseRegion_returnOk(){
         //Arrange
         String ulr = "/api/v1/houses/region?region=none";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+
+        //Act
+        ResponseEntity<Object> response = testRestTemplate.exchange(requestEntity, ParameterizedTypeReference.forType(String.class));
+        System.out.println("testresp ====>"+response.getBody());
+
+        //Assert
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+
+    }
+
+    @Test
+    @DisplayName("Houses can be returned by region")
+    void testGetHouseByWords_GivenHouseWords_returnOk(){
+        //Arrange
+        String ulr = "/api/v1/houses/words?words=No Foe May Pass";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
 
         //Act

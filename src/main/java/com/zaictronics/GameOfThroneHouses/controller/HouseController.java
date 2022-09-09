@@ -58,4 +58,10 @@ public class HouseController {
 
         return houseService.getHouseByRegion(region);
     }
+
+    @GetMapping("/houses/words")
+    public ResponseEntity<List<MiniHouseModel>> getHouseByWords(@RequestParam(name = "words") String words){
+
+        return houseService.getHouseByWords(words);
+    }
 }
