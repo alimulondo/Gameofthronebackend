@@ -16,6 +16,8 @@ public class HouseRepositoryImpl implements HouseRepository {
     @Autowired
     WebClient webClient;
 
+    private String key;
+
     @Override
     public ResponseEntity<HouseDTO> getHouse(String id) {
 
@@ -48,12 +50,20 @@ public class HouseRepositoryImpl implements HouseRepository {
     public ResponseEntity<List<HouseDTO>> getHouseByName(String name) {
 
         return webClient.get()
-                .uri("/houses/?name=" + name)
+                .uri("/houses/?"+this.getKey()+"=" + name)
                 .retrieve()
                 .onStatus(
                  HttpStatus::isError, e -> Mono.error(new RuntimeException(e.statusCode().toString())))
                 .toEntityList(HouseDTO.class)
                 .block();
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }
 

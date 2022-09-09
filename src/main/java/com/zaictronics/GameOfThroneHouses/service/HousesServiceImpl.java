@@ -3,8 +3,9 @@ package com.zaictronics.GameOfThroneHouses.service;
 import com.zaictronics.GameOfThroneHouses.dto.HouseDTO;
 import com.zaictronics.GameOfThroneHouses.model.HouseModel;
 import com.zaictronics.GameOfThroneHouses.model.MiniHouseModel;
-import com.zaictronics.GameOfThroneHouses.repository.HouseRepository;
+import com.zaictronics.GameOfThroneHouses.repository.HouseRepositoryImpl;
 import com.zaictronics.GameOfThroneHouses.shared.UrlFormatter;
+import com.zaictronics.GameOfThroneHouses.shared.UtilWords;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +19,16 @@ import java.util.List;
 public class HousesServiceImpl implements HousesService {
 
     @Autowired
-    HouseRepository houseRepository;
+    HouseRepositoryImpl houseRepository;
 
     @Autowired
     ModelMapper modelMapper;
 
     @Autowired
     UrlFormatter urlFormatter;
+
+    @Autowired
+    UtilWords utilWords;
 
     @Override
     public ResponseEntity<List<MiniHouseModel>> getHouses() {
@@ -56,12 +60,17 @@ public class HousesServiceImpl implements HousesService {
 
     @Override
     public ResponseEntity<List<MiniHouseModel>> getHouseByName(String name) {
+        houseRepository.setKey(utilWords.getParamKey().get("name"));
 
+        return getListResponseEntity(name);
+    }
+
+    private ResponseEntity<List<MiniHouseModel>> getListResponseEntity(String name) {
         List<MiniHouseModel> miniHouseModels = new LinkedList<>();
         MiniHouseModel miniHouseModel;
         ResponseEntity<List<HouseDTO>> houseRepoResult = houseRepository.getHouseByName(name);
         List<HouseDTO> houseDTO = houseRepoResult.getBody();
-        if(houseDTO == null) throw new RuntimeException("No house available with name="+name);
+        if(houseDTO == null) throw new RuntimeException("No house available with name="+ name);
         for(HouseDTO dto : houseDTO){
             miniHouseModel = modelMapper.map(dto, MiniHouseModel.class);
             miniHouseModel.setId(urlFormatter.formatUrl(dto.getUrl()));
@@ -71,6 +80,18 @@ public class HousesServiceImpl implements HousesService {
         HouseModel houseModel = modelMapper.map(houseDTO, HouseModel.class);
 //        houseModel.setId(urlFormatter.formatUrl(houseDTO.getUrl()));
         return new ResponseEntity<>(miniHouseModels, houseRepoResult.getStatusCode());
+    }
+
+    @Override
+    public ResponseEntity<List<MiniHouseModel>> getHouseByRegion(String region) {
+        houseRepository.setKey(utilWords.getParamKey().get("region"));
+        return getListResponseEntity(region);
+    }
+
+    @Override
+    public ResponseEntity<List<MiniHouseModel>> getHouseByWords(String words) {
+        houseRepository.setKey(utilWords.getParamKey().get("words"));
+        return getListResponseEntity(words);
     }
 
 

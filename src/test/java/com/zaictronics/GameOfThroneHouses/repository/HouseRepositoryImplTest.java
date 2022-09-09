@@ -14,7 +14,7 @@ import java.util.List;
 class HouseRepositoryImplTest {
 
     @Autowired
-    HouseRepository houseRepository;
+    HouseRepositoryImpl houseRepository;
 
     @Test
     void testGetHouse_WhenProvidedWithHouseId_returnOkStatus() {
@@ -62,8 +62,8 @@ class HouseRepositoryImplTest {
     void testGetHouseByName_WhenHouseNameIsProvidedIsWrong_returnEmptyObject() {
         int expectedSize = 0;
         String name = "none";
+        houseRepository.setKey("name");
         ResponseEntity<List<HouseDTO>> house = houseRepository.getHouseByName(name);
-
         int actualSize = house.getBody().size();
 
         Assertions.assertEquals(expectedSize, actualSize);

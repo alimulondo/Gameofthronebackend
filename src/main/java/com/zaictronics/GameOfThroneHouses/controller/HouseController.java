@@ -53,4 +53,9 @@ public class HouseController {
 
         return houseService.getHouseByName(name);
     }
+    @GetMapping("/houses/region")
+    public ResponseEntity<List<MiniHouseModel>> getHouseByRegion(@RequestParam(name = "region") String region){
+
+        return houseService.getHouseByRegion(region);
+    }
 }
