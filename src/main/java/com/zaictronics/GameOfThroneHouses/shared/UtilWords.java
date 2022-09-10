@@ -17,5 +17,28 @@ public class UtilWords {
                 "words","words"
         );
 
+
+    }
+
+    @Bean
+    public Map<String, String> getBooleanParamKey(){
+
+        return Map.of(
+                "hasWords","hasWords",
+                "hasTitles", "hasTitles",
+                "hasSeats","hasSeats",
+                "hasDiedOut","hasDiedOut",
+                "hasAncestralWeapons","hasAncestralWeapons"
+        );
+
+    }
+
+    @Bean
+    public Map<String, String> getBooleanPossibleValues() {
+
+        return Map.of(
+                "true", "true",
+                "false", "false"
+        );
     }
 }

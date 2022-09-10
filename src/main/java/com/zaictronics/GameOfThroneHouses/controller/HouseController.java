@@ -4,6 +4,7 @@ import com.zaictronics.GameOfThroneHouses.model.HouseModel;
 import com.zaictronics.GameOfThroneHouses.model.MiniHouseModel;
 import com.zaictronics.GameOfThroneHouses.service.HousesService;
 import com.zaictronics.GameOfThroneHouses.shared.HouseList;
+import com.zaictronics.GameOfThroneHouses.shared.UtilWords;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,9 @@ public class HouseController {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    UtilWords utilWords;
 
     @GetMapping("/houses")
     public ResponseEntity<HouseList> getHouses() {
@@ -64,4 +68,15 @@ public class HouseController {
 
         return houseService.getHouseByWords(words);
     }
+
+    @GetMapping("/houses/haswords")
+    public ResponseEntity<List<MiniHouseModel>> getHouseByHasWords(@RequestParam(name = "status") String status){
+        String reqParam = status.toLowerCase();
+        if(!utilWords.getBooleanPossibleValues().containsKey(reqParam)) {
+            throw new IllegalArgumentException("only true or false is allowed");
+        }
+
+        return houseService.getHouseByHasWords(reqParam);
+    }
+
 }

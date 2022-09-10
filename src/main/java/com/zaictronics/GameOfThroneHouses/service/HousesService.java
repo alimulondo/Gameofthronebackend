@@ -17,4 +17,6 @@ public interface HousesService {
     ResponseEntity<List<MiniHouseModel>> getHouseByRegion(String region);
 
     ResponseEntity<List<MiniHouseModel>> getHouseByWords(String words);
+
+    ResponseEntity<List<MiniHouseModel>> getHouseByHasWords(String status);
 }
