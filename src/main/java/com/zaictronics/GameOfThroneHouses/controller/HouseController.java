@@ -72,11 +72,24 @@ public class HouseController {
     @GetMapping("/houses/haswords")
     public ResponseEntity<List<MiniHouseModel>> getHouseByHasWords(@RequestParam(name = "status") String status){
         String reqParam = status.toLowerCase();
-        if(!utilWords.getBooleanPossibleValues().containsKey(reqParam)) {
-            throw new IllegalArgumentException("only true or false is allowed");
-        }
+        checkValidity(reqParam);
 
         return houseService.getHouseByHasWords(reqParam);
+    }
+
+    private void checkValidity(String reqParam) {
+        if(!utilWords.getBooleanPossibleValues().containsKey(reqParam)) {
+        System.out.println("throwing exception ===>>"+ reqParam);
+            throw new IllegalArgumentException("only true or false is allowed");
+        }
+    }
+
+    @GetMapping("/houses/hastittles")
+    public ResponseEntity<List<MiniHouseModel>> getHouseByHasTittles(@RequestParam(name = "status") String status){
+        String reqParam = status.toLowerCase();
+        checkValidity(reqParam);
+
+        return houseService.getHouseByTittles(reqParam);
     }
 
 }

@@ -98,7 +98,7 @@ public class HousesControllerWebLayerTest {
     }
 
     @Test
-    @DisplayName("Houses can be returned by region")
+    @DisplayName("Houses can be returned by words")
     void testGetHouseByWords_GivenHouseWords_returnOk(){
         //Arrange
         String ulr = "/api/v1/houses/words?words=No Foe May Pass";
@@ -110,6 +110,81 @@ public class HousesControllerWebLayerTest {
 
         //Assert
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+
+    }
+
+    @Test
+    @DisplayName("Test wrong  hasWords as a search key")
+    void testGetHouseByHasWords_ProvidedHasWordKeyIsInvalid_returnErrorMessage(){
+        //Arrange
+        String ulr = "/api/v1/houses/haswords?status=test";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        String expected = "only true or false is allowed";
+
+        //Act
+
+        ResponseEntity<Object> response = testRestTemplate.exchange(
+                                            requestEntity, ParameterizedTypeReference.forType(String.class)
+                                            );
+        //Assert
+        Assertions.assertEquals(expected, response.getBody());
+
+    }
+
+    @Test
+    @DisplayName("Test correct  hasWords as a search key")
+    void testGetHouseByHasWords_ProvidedHasWordKeyIsValid_returnOk(){
+        //Arrange
+        String ulr = "/api/v1/houses/haswords?status=true";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        HttpStatus expected = HttpStatus.OK;
+
+        //Act
+
+        ResponseEntity<Object> response = testRestTemplate.exchange(
+                requestEntity, ParameterizedTypeReference.forType(String.class)
+        );
+        //Assert
+        Assertions.assertEquals(expected, response.getStatusCode());
+
+    }
+
+    @Test
+    @DisplayName("Test correct  hasTittles as a search key")
+    void testGetHouseByHasTitles_ProvidedHasWordKeyIsValid_returnOk(){
+        //Arrange
+        String ulr = "/api/v1/houses/hastittles?status=true";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        HttpStatus expected = HttpStatus.OK;
+
+        //Act
+
+        ResponseEntity<Object> response = testRestTemplate.exchange(
+                requestEntity, ParameterizedTypeReference.forType(String.class)
+        );
+        //Assert
+        Assertions.assertEquals(expected, response.getStatusCode());
+
+    }
+
+    @Test
+    @DisplayName("Test correct  hasTittles as a search key")
+    void testGetHouseByHasTitles_ProvidedHasWordKeyIsInValid_returnErrorMessage(){
+        //Arrange
+        String ulr = "/api/v1/houses/hastittles?status=test";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        HttpStatus expectedStatus = HttpStatus.CONFLICT;
+        String expectedMessage = "only true or false is allowed";
+
+
+        //Act
+
+        ResponseEntity<Object> response = testRestTemplate.exchange(
+                requestEntity, ParameterizedTypeReference.forType(String.class)
+        );
+        //Assert
+        Assertions.assertEquals(expectedStatus, response.getStatusCode());
+        Assertions.assertEquals(expectedMessage, response.getBody());
 
     }
 
