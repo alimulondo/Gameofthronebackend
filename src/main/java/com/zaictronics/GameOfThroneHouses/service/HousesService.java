@@ -21,4 +21,6 @@ public interface HousesService {
     ResponseEntity<List<MiniHouseModel>> getHouseByHasWords(String status);
 
     ResponseEntity<List<MiniHouseModel>> getHouseByTittles(String reqParam);
+
+    ResponseEntity<List<MiniHouseModel>> getHouseByHasSeats(String reqParam);
 }

@@ -153,7 +153,7 @@ public class HousesControllerWebLayerTest {
     @DisplayName("Test correct  hasTittles as a search key")
     void testGetHouseByHasTitles_ProvidedHasWordKeyIsValid_returnOk(){
         //Arrange
-        String ulr = "/api/v1/houses/hastittles?status=true";
+        String ulr = "/api/v1/houses/hastitles?status=true";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
         HttpStatus expected = HttpStatus.OK;
 
@@ -168,10 +168,31 @@ public class HousesControllerWebLayerTest {
     }
 
     @Test
-    @DisplayName("Test correct  hasTittles as a search key")
+    @DisplayName("Test wrong  hasTittles as a search key")
     void testGetHouseByHasTitles_ProvidedHasWordKeyIsInValid_returnErrorMessage(){
         //Arrange
-        String ulr = "/api/v1/houses/hastittles?status=test";
+        String ulr = "/api/v1/houses/hastitles?status=test";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        HttpStatus expectedStatus = HttpStatus.CONFLICT;
+        String expectedMessage = "only true or false is allowed";
+
+
+        //Act
+
+        ResponseEntity<Object> response = testRestTemplate.exchange(
+                requestEntity, ParameterizedTypeReference.forType(String.class)
+        );
+        //Assert
+        Assertions.assertEquals(expectedStatus, response.getStatusCode());
+        Assertions.assertEquals(expectedMessage, response.getBody());
+
+    }
+
+    @Test
+    @DisplayName("Test wrong  hasSeats as a search key")
+    void testGetHouseByHasSeats_ProvidedHasWordKeyIsInValid_returnErrorMessage(){
+        //Arrange
+        String ulr = "/api/v1/houses/hasseats?status=test";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
         HttpStatus expectedStatus = HttpStatus.CONFLICT;
         String expectedMessage = "only true or false is allowed";

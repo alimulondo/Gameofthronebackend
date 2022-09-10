@@ -84,12 +84,20 @@ public class HouseController {
         }
     }
 
-    @GetMapping("/houses/hastittles")
-    public ResponseEntity<List<MiniHouseModel>> getHouseByHasTittles(@RequestParam(name = "status") String status){
+    @GetMapping("/houses/hastitles")
+    public ResponseEntity<List<MiniHouseModel>> getHouseByHasTitles(@RequestParam(name = "status") String status){
         String reqParam = status.toLowerCase();
         checkValidity(reqParam);
 
         return houseService.getHouseByTittles(reqParam);
+    }
+
+    @GetMapping("/houses/hasseats")
+    public ResponseEntity<List<MiniHouseModel>> getHouseByHasSeats(@RequestParam(name = "status") String status){
+        String reqParam = status.toLowerCase();
+        checkValidity(reqParam);
+
+        return houseService.getHouseByHasSeats(reqParam);
     }
 
 }

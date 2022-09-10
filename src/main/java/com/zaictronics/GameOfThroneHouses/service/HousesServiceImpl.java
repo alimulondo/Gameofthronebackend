@@ -107,5 +107,11 @@ public class HousesServiceImpl implements HousesService {
         return getListResponseEntity(reqParam);
     }
 
+    @Override
+    public ResponseEntity<List<MiniHouseModel>> getHouseByHasSeats(String reqParam) {
+        houseRepository.setKey(utilWords.getBooleanParamKey().get("hasSeats"));
+        return getListResponseEntity(reqParam);
+    }
+
 
 }
