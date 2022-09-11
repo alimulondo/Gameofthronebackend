@@ -189,10 +189,29 @@ public class HousesControllerWebLayerTest {
     }
 
     @Test
-    @DisplayName("Test wrong  hasSeats as a search key")
+    @DisplayName("Test  hasDiedOut a correct search key")
     void testGetHouseByHasSeats_ProvidedHasWordKeyIsInValid_returnErrorMessage(){
         //Arrange
-        String ulr = "/api/v1/houses/hasseats?status=test";
+        String ulr = "/api/v1/houses/hasseats?status=true";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        HttpStatus expectedStatus = HttpStatus.OK;
+
+        //Act
+
+        ResponseEntity<Object> response = testRestTemplate.exchange(
+                requestEntity, ParameterizedTypeReference.forType(String.class)
+        );
+        //Assert
+        Assertions.assertEquals(expectedStatus, response.getStatusCode());
+
+    }
+
+    //hasdiedout
+    @Test
+    @DisplayName("Test wrong  hasDiedOut as a search key")
+    void testGetHouseByHasDiedOUt_ProvidedHasWordKeyIsInValid_returnErrorMessage(){
+        //Arrange
+        String ulr = "/api/v1/houses/hasdiedout?status=test";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
         HttpStatus expectedStatus = HttpStatus.CONFLICT;
         String expectedMessage = "only true or false is allowed";
@@ -206,6 +225,24 @@ public class HousesControllerWebLayerTest {
         //Assert
         Assertions.assertEquals(expectedStatus, response.getStatusCode());
         Assertions.assertEquals(expectedMessage, response.getBody());
+
+    }
+
+    @Test
+    @DisplayName("Test  hasSeats with a correct search key")
+    void testGetHouseByHasDiedOut_ProvidedHasWordKeyIsInValid_returnErrorMessage(){
+        //Arrange
+        String ulr = "/api/v1/houses/hasdiedout?status=true";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        HttpStatus expectedStatus = HttpStatus.OK;
+
+        //Act
+
+        ResponseEntity<Object> response = testRestTemplate.exchange(
+                requestEntity, ParameterizedTypeReference.forType(String.class)
+        );
+        //Assert
+        Assertions.assertEquals(expectedStatus, response.getStatusCode());
 
     }
 

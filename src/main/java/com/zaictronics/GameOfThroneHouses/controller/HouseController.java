@@ -100,4 +100,12 @@ public class HouseController {
         return houseService.getHouseByHasSeats(reqParam);
     }
 
+    @GetMapping("/houses/hasdiedout")
+    public ResponseEntity<List<MiniHouseModel>> getHouseByHasDiedOut(@RequestParam(name = "status") String status){
+        String reqParam = status.toLowerCase();
+        checkValidity(reqParam);
+
+        return houseService.getHouseByHasDiedOut(reqParam);
+    }
+
 }

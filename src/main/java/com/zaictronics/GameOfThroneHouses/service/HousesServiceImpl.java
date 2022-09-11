@@ -113,5 +113,11 @@ public class HousesServiceImpl implements HousesService {
         return getListResponseEntity(reqParam);
     }
 
+    @Override
+    public ResponseEntity<List<MiniHouseModel>> getHouseByHasDiedOut(String reqParam) {
+        houseRepository.setKey(utilWords.getBooleanParamKey().get("hasDiedOut"));
+        return getListResponseEntity(reqParam);
+    }
+
 
 }
