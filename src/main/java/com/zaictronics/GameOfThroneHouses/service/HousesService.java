@@ -25,4 +25,6 @@ public interface HousesService {
     ResponseEntity<List<MiniHouseModel>> getHouseByHasSeats(String reqParam);
 
     ResponseEntity<List<MiniHouseModel>> getHouseByHasDiedOut(String reqParam);
+
+    ResponseEntity<List<MiniHouseModel>> getHouseByHasAncestralWeapons(String reqParam);
 }

@@ -190,7 +190,7 @@ public class HousesControllerWebLayerTest {
 
     @Test
     @DisplayName("Test  hasDiedOut a correct search key")
-    void testGetHouseByHasSeats_ProvidedHasWordKeyIsInValid_returnErrorMessage(){
+    void testGetHouseByHasSeats_ProvidedHasWordKeyIsValid_returnOk(){
         //Arrange
         String ulr = "/api/v1/houses/hasseats?status=true";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
@@ -230,9 +230,49 @@ public class HousesControllerWebLayerTest {
 
     @Test
     @DisplayName("Test  hasSeats with a correct search key")
-    void testGetHouseByHasDiedOut_ProvidedHasWordKeyIsInValid_returnErrorMessage(){
+    void testGetHouseByHasDiedOut_ProvidedHasWordKeyIsValid_returnOk(){
         //Arrange
         String ulr = "/api/v1/houses/hasdiedout?status=true";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        HttpStatus expectedStatus = HttpStatus.OK;
+
+        //Act
+
+        ResponseEntity<Object> response = testRestTemplate.exchange(
+                requestEntity, ParameterizedTypeReference.forType(String.class)
+        );
+        //Assert
+        Assertions.assertEquals(expectedStatus, response.getStatusCode());
+
+    }
+
+    //AncestralWeapons
+    @Test
+    @DisplayName("Test wrong  hasAncestralWeapons as a search key")
+    void testGetHouseByHasAncestralWeapons_ProvidedHasWordKeyIsInValid_returnErrorMessage(){
+        //Arrange
+        String ulr = "/api/v1/houses/hasancestralweapons?status=test";
+        RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
+        HttpStatus expectedStatus = HttpStatus.CONFLICT;
+        String expectedMessage = "only true or false is allowed";
+
+
+        //Act
+
+        ResponseEntity<Object> response = testRestTemplate.exchange(
+                requestEntity, ParameterizedTypeReference.forType(String.class)
+        );
+        //Assert
+        Assertions.assertEquals(expectedStatus, response.getStatusCode());
+        Assertions.assertEquals(expectedMessage, response.getBody());
+
+    }
+
+    @Test
+    @DisplayName("Test  hasAncestralWeapons with a correct search key")
+    void testGetHouseByHasAncestralWeapons_ProvidedHasWordKeyIsValid_returnOk(){
+        //Arrange
+        String ulr = "/api/v1/houses/hasancestralweapons?status=true";
         RequestEntity<Void> requestEntity = RequestEntity.get(ulr).build();
         HttpStatus expectedStatus = HttpStatus.OK;
 

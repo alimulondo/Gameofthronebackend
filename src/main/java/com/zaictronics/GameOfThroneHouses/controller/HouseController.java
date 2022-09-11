@@ -108,4 +108,12 @@ public class HouseController {
         return houseService.getHouseByHasDiedOut(reqParam);
     }
 
+    @GetMapping("/houses/hasancestralweapons")
+    public ResponseEntity<List<MiniHouseModel>> getHouseByHasAncestralWeapons(@RequestParam(name = "status") String status){
+        String reqParam = status.toLowerCase();
+        checkValidity(reqParam);
+
+        return houseService.getHouseByHasAncestralWeapons(reqParam);
+    }
+
 }
