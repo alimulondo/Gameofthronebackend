@@ -27,7 +27,7 @@ public class HouseDTO {
     private  String region;
     private  String coatOfArms;
     private String words;
-    private List<String> title;
+    private List<String> titles;
     private List<String> seats;
     private String currentLord;
     private String heir;
@@ -78,12 +78,12 @@ public class HouseDTO {
         this.words = words;
     }
 
-    public List<String> getTitle() {
-        return title;
+    public List<String> getTitles() {
+        return titles;
     }
 
-    public void setTitle(List<String> title) {
-        this.title = title;
+    public void setTitles(List<String> titles) {
+        this.titles = titles;
     }
 
     public List<String> getSeats() {
@@ -166,7 +166,7 @@ public class HouseDTO {
                 ", region='" + region + '\'' +
                 ", coatOfArms='" + coatOfArms + '\'' +
                 ", words='" + words + '\'' +
-                ", title=" + title +
+                ", title=" + titles +
                 ", seats=" + seats +
                 ", currentLord='" + currentLord + '\'' +
                 ", heir='" + heir + '\'' +
