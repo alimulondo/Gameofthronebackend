@@ -43,13 +43,13 @@ public class HouseController {
     }
 
     @GetMapping("/houses/{id}")
-    public ResponseEntity<MiniHouseModel> getHouse(@PathVariable(name = "id") int id){
+    public ResponseEntity<HouseModel> getHouse(@PathVariable(name = "id") int id){
 
         HouseModel house = houseService.getHouse(id);
         if(house == null) throw new RuntimeException("No house found with id = "+id);
-        MiniHouseModel miniHouseModel = modelMapper.map(house, MiniHouseModel.class);
+//        HouseModel miniHouseModel = modelMapper.map(house, HouseModel.class);
 
-        return new ResponseEntity<>(miniHouseModel, HttpStatus.OK);
+        return new ResponseEntity<>(house, HttpStatus.OK);
     }
 
     @GetMapping("/houses/name")
